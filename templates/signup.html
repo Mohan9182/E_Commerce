@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome | Life Style Store</title>
+    <link href="{%static 'css/bootstrap.css' %}" rel="stylesheet">
+    <script src="{%static 'js/jquery.js' %}"></script>
+    <script src="{%static 'js/bootstrap.min.js' %}"></script>
+    <link href="{%static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container" style="width:25%;height:75%;position:relative;left: 0;right: 0;margin: 10% auto;">
+        <h3 style="text-align:center">Signup</h3>
+        <form action="" method="post">{% csrf_token %}
+            {% comment %} <div class="mb-3">
+                <input type="text" class="form-control" name="name" placeholder="Name">
+            </div>
+            <div class="mb-3">
+              <input type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Email">
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" name="password" placeholder="Password">
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" placeholder="Address" name="address" maxlength="3000" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Mobile" name="mobile">
+            </div> {% endcomment %}
+            {% for field in form %}
+            <div class="mb-3">
+                {{ field }}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    
+</body>
+</html>
