@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-xl navbar-light navbar-inverse navbar-fixed-top justify-content-between">
+    <div class="container-fluid justify-content-between">
+        <a class="navbar-brand" href="home">Mohan Stores</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ">
+        {% if not user_auth %}
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="login">Login</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="signup">Signup</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="cart">Cart</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="logout">Logout</a>
+            </li>
+        {% endif %}
+    </ul>
+    </div>
+</nav>
+    

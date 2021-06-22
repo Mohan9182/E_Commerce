@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,51 +10,13 @@
         <link href="{%static 'css/style.css' %}" rel="stylesheet">
     </head>
     <body>
-    {% if not user_auth %}
-        <nav class="navbar navbar-expand-xl navbar-light navbar-inverse navbar-fixed-top justify-content-between">
-            <div class="container-fluid justify-content-between">
-                <a class="navbar-brand" href="#">Mohan Stores</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/signup">Signup</a>
-                </li>
-            </ul>
-            </div>
-        </nav>
-    {% else %}
-        <nav class="navbar navbar-expand-xl navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Mohan Stores</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                    <a class="nav-link" href="#">Cart</a>
-                    </li>
-                    <li class="nav-item active">
-                    <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        </nav>
-    {% endif %}
-        <div id="content">
+    {% include 'header.html' %}
+        <div class="content">
             <!--Main banner image-->
-            <div id = "banner_image" style="background-image: url({%static 'img/intro-bg_1.jpg' %});background-size: cover;">
+            <div class = "banner_image" style="background-image: url({%static 'img/intro-bg_1.jpg' %});background-size: cover;">
                 <div class="container">	
                     <center>
-                        <div id="banner_content">
+                        <div class="banner_content">
                             <h1>We sell lifestyle.</h1>
                             <p>Flat 40% OFF on premium brands </p>
                             <br/>

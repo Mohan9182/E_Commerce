@@ -18,3 +18,13 @@ class Orders(models.Model):
 
     def __str__(self):
         return self.category
+
+class Products(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
+    category = models.IntegerField(default=0)
+    price = models.IntegerField()
+    pic = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.name

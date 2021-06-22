@@ -1,19 +1,10 @@
 from django.shortcuts import redirect, render
-from .models import User,Orders
+from .models import User,Orders,Products
 from .forms import Signupform
 from django.views.decorators.csrf import csrf_protect
 
 user_auth = 0
 user = ''
-
-cameras = {
-    1:{'name': 'Nikon','price':39000,'pic':'1.jpg'},
-    2:{'name': 'Canon','price':20000,'pic':'2.jpg'},
-    3:{'name': 'Samsung','price':25000,'pic':'3.jpg'},
-    4:{'name': 'LG','price':15000,'pic':'4.jpg'},
-    5:{'name': 'Sony','price':40000,'pic':'5.jpg'},
-    6:{'name': 'Fujifilm','price':35000,'pic':'6.jpg'},
-}
 
 orders = []
 
@@ -42,21 +33,42 @@ def login(request):
         data = request.POST
         user = User.objects.get(email=data['email'])
         user_auth = user.id
-        if user.password == data['password']: return render(request,"index.html",{'user_auth':user_auth})
+        if user.password == data['password']:
+            orders = Orders.objects.filter(user=user,status='Added to cart').values_list('product_id',flat=True)
+            return render(request,"index.html",{'user_auth':user_auth})
     return render(request,"login.html")
 
 def logout(request):
-    global user_auth
+    global user_auth,user
     user_auth = False
+    user = ''
     return redirect(index)
 
 def camera(request):
-    global cameras,orders,user
-    orders = Orders.objects.filter(user=user,status='Added to cart').values_list('product_id',flat=True)
+    global orders,user
+    cameras = Products.objects.filter(category=0)
+    if user: orders = Orders.objects.filter(user=user,status='Added to cart').values_list('product_id',flat=True)
     return render(request,"products.html",{'user_auth':user_auth,'products':cameras,'orders':orders})
 
 def add_to_cart(request,id):
     global user_auth,user
-    order = Orders(user = user,product_id = id, status = 'Added to cart')
-    order.save()
+    Orders(user = user,product_id = id, status = 'Added to cart').save()
     return redirect(camera)
+
+def cart(request):
+    global user_auth,orders
+    products = Products.objects.filter(id__in=orders)
+    total = sum([product.price for product in products])
+    return render(request,"cart.html",{'user_auth':user_auth,'products':products,'total':total})
+
+def delete_from_cart(request,id):
+    global user,orders
+    Orders.objects.filter(user=user,product_id=id).delete()
+    orders = Orders.objects.filter(user=user,status='Added to cart').values_list('product_id',flat=True)
+    return redirect(cart)
+
+def checkout(request):
+    global orders,user
+    Orders.objects.filter(user=user).update(status='Confirmed')
+    orders = []
+    return redirect(cart)
